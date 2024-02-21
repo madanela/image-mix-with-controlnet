@@ -18,9 +18,9 @@ def generate_stylized_image(prompt, image_bytes):
     processor = PidiNetDetector.from_pretrained('lllyasviel/Annotators')
     image = processor(image, safe=True)
 
-    controlnet = ControlNetModel.from_pretrained(checkpoint, torch_dtype=torch.float32)
+    controlnet = ControlNetModel.from_pretrained(checkpoint, torch_dtype=torch.float16)
     pipe = StableDiffusionControlNetPipeline.from_pretrained(
-        "runwayml/stable-diffusion-v1-5", controlnet=controlnet, torch_dtype=torch.float32
+        "runwayml/stable-diffusion-v1-5", controlnet=controlnet, torch_dtype=torch.float16
     )
 
     pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
